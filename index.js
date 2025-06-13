@@ -37,7 +37,12 @@ app.post('/send-email', async (req, res) => {
 
     res.status(200).send({ message: "Correo enviado" });
   } catch (error) {
-    console.error('Error al enviar:', error.response?.data || error.message);
+    console.error('Error al enviar:', {
+      message: error.message,
+      data: error.response?.data,
+      status: error.response?.status,
+      headers: error.response?.headers
+    });
     res.status(500).send({ message: "Error al enviar correo"});
   }
 });
