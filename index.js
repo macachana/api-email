@@ -14,13 +14,13 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.post('/send-email', async (req, res) => {
-  const { to, message } = req.body;
+  const { to, mensaje } = req.body;
 
   try {
     const response = await axios.post('https://api.sendgrid.com/v3/mail/send', {
       personalizations: [{
         to: [{ email: to }],
-        dynamic_template_data: { message },
+        dynamic_template_data: { mensaje },
       }],
       from: {
         email: 'combocriminal0@gmail.com',
