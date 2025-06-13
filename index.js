@@ -14,13 +14,13 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.post('/send-email', async (req, res) => {
-  const { to, mensaje } = req.body;
+  const { to, name, message } = req.body;
 
   try {
     const response = await axios.post('https://api.sendgrid.com/v3/mail/send', {
       personalizations: [{
         to: [{ email: to }],
-        dynamic_template_data: { mensaje },
+        dynamic_template_data: { name, message }
       }],
       from: {
         email: 'combocriminal0@gmail.com',
@@ -37,13 +37,8 @@ app.post('/send-email', async (req, res) => {
 
     res.status(200).send({ message: "Correo enviado" });
   } catch (error) {
-    console.error('Error al enviar:', {
-      data: error.response?.data,
-      status: error.response?.status,
-      headers: error.response?.headers,
-      message: error.message
-    });
-    res.status(500).send({ message: "Error al enviar correo triste"});
+    console.error('Error al enviar:', error.response?.data || error.message);
+    res.status(500).send({ message: "Error al enviar correo"});
   }
 });
 
