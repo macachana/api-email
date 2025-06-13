@@ -31,7 +31,7 @@ app.post('/send-email', async (req, res) => {
         email: 'combocriminal0@gmail.com',
         name: 'Combo criminal'
       },
-      template_id: TEMPLATE_ID,
+      template_id: TEMPLATE_ID
     }, {
       headers: {
         Authorization: `Bearer ${SENDGRID_API_KEY}`,
