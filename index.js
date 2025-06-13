@@ -11,6 +11,14 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.post('/send-email', async (req, res) => {
+  if (!to || !name || !message) {
+    return res.status(400).send({ message: "Faltan campos obligatorios (to, name, message)" });
+  }
+
+  if (!to || !name || !message) {
+    return res.status(400).send({ message: "Faltan campos obligatorios (to, name, message)" });
+  }
+
   if (req.method !== 'POST') {
     return res.status(405).send({ message: 'Método no permitido' });
   }
