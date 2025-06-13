@@ -11,9 +11,6 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.post('/send-email', async (req, res) => {
-  if (!to || !name || !message) {
-    return res.status(400).send({ message: "Faltan campos obligatorios (to, name, message)" });
-  }
 
   if (!to || !name || !message) {
     return res.status(400).send({ message: "Faltan campos obligatorios (to, name, message)" });
@@ -57,6 +54,8 @@ app.post('/send-email', async (req, res) => {
       headers: error.response?.headers
     });
     res.status(500).send({ message: "Error al enviar correo"});
+    console.log('email:',to);
+    console.log('message',message);
   }
 });
 
