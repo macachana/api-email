@@ -7,18 +7,16 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors());
+const corsOptions = {
+  origin: ['http://localhost:8100'], // O tu dominio frontend real si lo tenés
+  methods: ['POST'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
+
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
 app.post('/send-email', async (req, res) => {
-  
-  const corsOptions = {
-    origin: ['http://localhost:8100'], // O tu dominio frontend real si lo tenés
-    methods: ['POST'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-  };
-
-  app.use(cors(corsOptions));
 
   if (!to || !name || !message) {
     return res.status(400).send({ message: "Faltan campos obligatorios (to, name, message)" });
